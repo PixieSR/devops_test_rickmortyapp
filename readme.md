@@ -1,7 +1,16 @@
 # Rick and Morty Application
 ## 1. Overview
 
-This project fetches data from the "Rick and Morty" public API, filtering characters based on specific criteria, and then exposes this information through a RESTful API. Additionally, the entire setup has been packaged into a Docker image and deployed to a Kubernetes cluster using Minikube for demonstration purposes.
+This project fetches data from the "Rick and Morty" public API for characters that are:
+
+    Species: Human
+    Status: Alive
+    Origin: Earth
+
+It then stores that data in a CSV file (name, location, image) and exposes a Flask-based REST API with two endpoints:
+
+    `GET /healthcheck` for checking the application's health
+    `GET /characters` for retrieving the filtered characters in JSON format
 
 ### What Has Been Done
 
@@ -34,6 +43,12 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
         - Starting Minikube.
         - Applying the Kubernetes manifests.
         - Accessing the application endpoints via Ingress.
+    
+    5. Helm Deployment
+        A Helm chart is also included for a more modular and scalable Kubernetes deployment. This README explains:
+        - Installing Helm
+        - Deploying the app via Helm
+        - Testing the endpoints on Minikube
 
 ## 2. Requirements
 
@@ -42,6 +57,7 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
     - requests (for API calls)
     - Docker (for building and running the container)
     - Minikube and kubectl (for Kubernetes deployment)
+    - Helm (optional) – for Helm-based deployment
 
 ## 3. Running Locally
 
@@ -114,6 +130,91 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
         Now you can access:
             - http://rickmorty.local/healthcheck
             - http://rickmorty.local/characters
+
+## 6. Deploying with Helm on Minikube
+
+If you prefer to use a Helm chart instead of raw YAML manifests, follow these steps:
+
+### 6.1 Install Helm (If Not Already Installed)
+
+macOS:
+
+```sh
+    brew install helm
+```
+
+Linux:
+
+```sh
+    curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+
+Windows:
+
+```sh
+    winget install kubernetes-helm
+```
+### 6.2 Start Minikube
+
+```sh
+    minikube start
+```
+### 6.3 Build Docker Image Inside Minikube
+
+If you’re building locally rather than pulling from a registry:
+```sh
+    eval $(minikube docker-env)
+    docker build -t rickmortyapp:latest .
+```
+
+### 6.4 Deploy via Helm
+
+Go to the Helm chart directory (or specify its path):
+```sh
+    cd helm/rickmortyapp
+```
+
+Install or Upgrade the Release:
+```sh
+    helm upgrade --install rickmortyapp . --wait
+```
+## 📝 Note:
+ >   `GET --install` creates a new release if it doesn’t exist.
+ >    `GET --wait` ensures Helm waits for Pods to be in a ready state.
+
+Check Resources:
+```sh
+    kubectl get pods
+    kubectl get svc
+    kubectl get ingress
+```
+
+### 6.5 Testing the Application
+
+If your Service is of type ClusterIP and you have Ingress:
+
+Get the Minikube IP:
+```sh 
+    minikube ip
+```
+
+Add `GET /etc/hosts` entry:
+```sh 
+sudo sh -c "echo '<MINIKUBE_IP> rickmorty.local' >> /etc/hosts"
+```
+
+Curl:
+```sh 
+    curl http://rickmorty.local/healthcheck
+    curl http://rickmorty.local/characters
+```
+
+Alternatively, if your Service is NodePort, you can do:
+```sh 
+    kubectl get svc rickmortyapp-service
+```
+# Then curl using <node_port> and minikube IP
+
 
 ## Notes
 
