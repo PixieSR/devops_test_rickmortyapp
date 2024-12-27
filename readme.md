@@ -27,8 +27,8 @@ It then stores that data in a CSV file (name, location, image) and exposes a Fla
 
 2. RESTful Service Implementation:
     Building on the script, the functionality was turned into a RESTful Flask application, providing:
-    - /healthcheck endpoint to verify that the application is up and running.
-    - /characters endpoint returning JSON with the filtered character data.
+    - `/healthcheck` endpoint to verify that the application is up and running.
+    - `/characters` endpoint returning JSON with the filtered character data.
 
     This allows easy retrieval of the filtered data via standard HTTP requests.
 
@@ -128,8 +128,8 @@ Update your `/etc/hosts` file:
     <minikube_ip> rickmorty.local
 ```
 Now you can access:
-            - http://rickmorty.local/healthcheck
-            - http://rickmorty.local/characters
+- http://rickmorty.local/healthcheck
+- http://rickmorty.local/characters
 
 ## 6. Deploying with Helm on Minikube
 
@@ -198,7 +198,7 @@ Get the Minikube IP:
     minikube ip
 ```
 
-Add `GET /etc/hosts` entry:
+Add `/etc/hosts` entry:
 ```sh 
 sudo sh -c "echo '<MINIKUBE_IP> rickmorty.local' >> /etc/hosts"
 ```
