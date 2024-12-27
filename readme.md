@@ -44,7 +44,7 @@ It then stores that data in a CSV file (name, location, image) and exposes a Fla
     - Applying the Kubernetes manifests.
     - Accessing the application endpoints via Ingress.
     
-    5. Helm Deployment
+5. Helm Deployment
     A Helm chart is also included for a more modular and scalable Kubernetes deployment. This README explains:
     - Installing Helm
     - Deploying the app via Helm
