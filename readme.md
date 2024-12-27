@@ -218,5 +218,5 @@ Alternatively, if your Service is NodePort, you can do:
 
 ## 📝 Note:
 > The provided endpoints are running on a basic Flask development server. For production, consider using a more robust WSGI server like Gunicorn or uWSGI.
-- The filtered character data is retrieved on-demand from the "Rick and Morty" API, so response times will depend on API latency.
-- If any changes are made to the code or requirements, remember to rebuild the Docker image and redeploy to update the running instance.
+> - The filtered character data is retrieved on-demand from the "Rick and Morty" API, so response times will depend on API latency.
+> - If any changes are made to the code or requirements, remember to rebuild the Docker image and redeploy to update the running instance.
