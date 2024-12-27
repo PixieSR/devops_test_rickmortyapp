@@ -45,63 +45,63 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
 
 ## 3. Running Locally
 
-    1. Create and Activate a Virtual Environment (Optional):
+1. Create and Activate a Virtual Environment (Optional):
 ```sh
     python3 -m venv venv
     source venv/bin/activate
 ```
 
-    2. Install Dependencies:
+2. Install Dependencies:
 ```sh
     pip install -r requirements.txt
 ```
 
-    3. Run the Application:
+3. Run the Application:
 ```sh
     python app.py
 ```
-    The service should start on http://0.0.0.0:5000.
+The service should start on http://0.0.0.0:5000.
         - Healthcheck: http://localhost:5000/healthcheck
         - Characters: http://localhost:5000/characters
 
 ## 4. Building and Running with Docker
 
-    1. Build the Docker Image:
+1. Build the Docker Image:
 ```sh
     docker build -t rickmortyapp:latest .
 ```
-    2. Run the Container:
+2. Run the Container:
 ```sh
     docker run -p 5000:5000 rickmortyapp:latest
 ```
-    Now you can access:
+Now you can access:
         - http://localhost:5000/healthcheck
         - http://localhost:5000/characters
 
 ## 5. Deploying to Kubernetes (Minikube)
 
-    1. Start Minikube:
+1. Start Minikube:
 ```sh
     minikube start
 ```
-    2. Use Minikube’s Docker Daemon (optional if building locally):
+2. Use Minikube’s Docker Daemon (optional if building locally):
 ```sh
     eval $(minikube docker-env)
     docker build -t rickmortyapp:latest .
 ```
-    3. Apply Kubernetes Manifests:
+3. Apply Kubernetes Manifests:
 ```sh
     kubectl apply -f yamls/deployment.yaml
     kubectl apply -f yamls/servic.yaml
     kubectl apply -f yamls/ingress.yaml
 ```
-    4. Check resources:
+4. Check resources:
 ```sh
     kubectl get pods
     kubectl get svc
     kubectl get ingress
 ```
-    4. Access the Application via Ingress:
+4. Access the Application via Ingress:
 
     - Get the Minikube IP:
 ```sh
@@ -111,7 +111,7 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
 ```sh
     <minikube_ip> rickmorty.local
 ```
-        Now you can access:
+Now you can access:
             - http://rickmorty.local/healthcheck
             - http://rickmorty.local/characters
 
