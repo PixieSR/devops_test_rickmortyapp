@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Kind cluster
+        uses: helm/kind-action@v1.2.0
+        with:
+          cluster_name: ci-cluster
+          kubernetes_version: v1.25.0
+
+      - name: Build Docker image
+        run: |
+          docker build -t rickmortyapp:latest .
+
+      - name: Load image into Kind
+        run: |
+          kind load docker-image rickmortyapp:latest --name ci-cluster
+
+      - name: Install Helm
+        run: |
+          curl -sSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Helm install
+        run: |
+          helm upgrade --install rickmortyapp ./helm/rickmortyapp --wait
+
+      - name: Port-forward and test endpoints
+        run: |
+          # Grab the service name
+          kubectl get svc
+
+          # Option A: Port-forward (if Service is ClusterIP)
+          kubectl port-forward service/rickmortyapp-service 5000:80 &
+          # Give the port-forward a second to set up
+          sleep 5
+
+          # Test endpoints
+          echo "Testing /healthcheck..."
+          curl -f http://localhost:5000/healthcheck
+
+          echo "Testing /characters..."
+          curl -f http://localhost:5000/characters
+
+          echo "All tests passed!"
+
+      - name: Cleanup cluster
+        if: always()
+        run: |
+          kind delete cluster --name ci-cluster
