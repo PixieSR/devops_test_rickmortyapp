@@ -3,61 +3,61 @@
 
 This project fetches data from the "Rick and Morty" public API for characters that are:
 
-    Species: Human
-    Status: Alive
-    Origin: Earth
+- Species: Human
+- Status: Alive
+- Origin: Earth
 
 It then stores that data in a CSV file (name, location, image) and exposes a Flask-based REST API with two endpoints:
 
-    `GET /healthcheck` for checking the application's health
-    `GET /characters` for retrieving the filtered characters in JSON format
+- `/healthcheck` for checking the application's health
+- `/characters` for retrieving the filtered characters in JSON format
 
 ### What Has Been Done
 
 1. Data Extraction and CSV Generation:
-        Initially, a script was created to query the "Rick and Morty" API and find all characters who are:
-        - Species: Human
-        - Status: Alive
-        - Origin: Earth
+    Initially, a script was created to query the "Rick and Morty" API and find all characters who are:
+    - Species: Human
+    - Status: Alive
+    - Origin: Earth
 
     After retrieving the data, the script generates a CSV file containing each character’s:
-        - Name
-        - Current Location
-        - Image URL
+    - Name
+    - Current Location
+    - Image URL
 
 2. RESTful Service Implementation:
-        Building on the script, the functionality was turned into a RESTful Flask application, providing:
-        - /healthcheck endpoint to verify that the application is up and running.
-        - /characters endpoint returning JSON with the filtered character data.
+    Building on the script, the functionality was turned into a RESTful Flask application, providing:
+    - /healthcheck endpoint to verify that the application is up and running.
+    - /characters endpoint returning JSON with the filtered character data.
 
     This allows easy retrieval of the filtered data via standard HTTP requests.
 
 3. Containerization and Documentation:
-        A Dockerfile was created to containerize the application. Detailed instructions on how to build and run the container - have been added. The README now guides you through:
-        - Building the Docker image.
-        - Running the container locally.
-        - Verifying the endpoints.
+    A Dockerfile was created to containerize the application. Detailed instructions on how to build and run the container - have been added. The README now guides you through:
+    - Building the Docker image.
+    - Running the container locally.
+    - Verifying the endpoints.
 
 4. Kubernetes Deployment with Minikube:
-        To showcase how this can be run in a Kubernetes environment, a set of YAML manifests (Deployment, Service, Ingress) were prepared. The README includes instructions for:
-        - Starting Minikube.
-        - Applying the Kubernetes manifests.
-        - Accessing the application endpoints via Ingress.
+    To showcase how this can be run in a Kubernetes environment, a set of YAML manifests (Deployment, Service, Ingress) were prepared. The README includes instructions for:
+    - Starting Minikube.
+    - Applying the Kubernetes manifests.
+    - Accessing the application endpoints via Ingress.
     
     5. Helm Deployment
-        A Helm chart is also included for a more modular and scalable Kubernetes deployment. This README explains:
-        - Installing Helm
-        - Deploying the app via Helm
-        - Testing the endpoints on Minikube
+    A Helm chart is also included for a more modular and scalable Kubernetes deployment. This README explains:
+    - Installing Helm
+    - Deploying the app via Helm
+    - Testing the endpoints on Minikube
 
 ## 2. Requirements
 
-    - Python 3.9 (for local runs)
-    - Flask (for the RESTful API)
-    - requests (for API calls)
-    - Docker (for building and running the container)
-    - Minikube and kubectl (for Kubernetes deployment)
-    - Helm (optional) – for Helm-based deployment
+- Python 3.9 (for local runs)
+- Flask (for the RESTful API)
+- requests (for API calls)
+- Docker (for building and running the container)
+- Minikube and kubectl (for Kubernetes deployment)
+- Helm (optional) – for Helm-based deployment
 
 ## 3. Running Locally
 
@@ -76,9 +76,9 @@ It then stores that data in a CSV file (name, location, image) and exposes a Fla
 ```sh
     python app.py
 ```
-The service should start on http://0.0.0.0:5000.
-        - Healthcheck: http://localhost:5000/healthcheck
-        - Characters: http://localhost:5000/characters
+The service should start on `http://0.0.0.0:5000`.
+- Healthcheck: `http://localhost:5000/healthcheck`
+- Characters: `http://localhost:5000/characters`
 
 ## 4. Building and Running with Docker
 
@@ -91,8 +91,8 @@ The service should start on http://0.0.0.0:5000.
     docker run -p 5000:5000 rickmortyapp:latest
 ```
 Now you can access:
-        - http://localhost:5000/healthcheck
-        - http://localhost:5000/characters
+- `http://localhost:5000/healthcheck`
+- `http://localhost:5000/characters`
 
 ## 5. Deploying to Kubernetes (Minikube)
 
@@ -119,11 +119,11 @@ Now you can access:
 ```
 4. Access the Application via Ingress:
 
-    - Get the Minikube IP:
+Get the Minikube IP:
 ```sh
     minikube ip
 ```
-    - Update your /etc/hosts file:
+Update your `/etc/hosts` file:
 ```sh
     <minikube_ip> rickmorty.local
 ```
@@ -179,8 +179,8 @@ Install or Upgrade the Release:
     helm upgrade --install rickmortyapp . --wait
 ```
 ## 📝 Note:
- >   `GET --install` creates a new release if it doesn’t exist.
- >    `GET --wait` ensures Helm waits for Pods to be in a ready state.
+ >   `--install` creates a new release if it doesn’t exist.
+ >   `--wait` ensures Helm waits for Pods to be in a ready state.
 
 Check Resources:
 ```sh
@@ -216,8 +216,7 @@ Alternatively, if your Service is NodePort, you can do:
 # Then curl using <node_port> and minikube IP
 
 
-## Notes
-
-    - The provided endpoints are running on a basic Flask development server. For production, consider using a more robust WSGI server like Gunicorn or uWSGI.
-    - The filtered character data is retrieved on-demand from the "Rick and Morty" API, so response times will depend on API latency.
-    - If any changes are made to the code or requirements, remember to rebuild the Docker image and redeploy to update the running instance.
+## 📝 Note:
+-The provided endpoints are running on a basic Flask development server. For production, consider using a more robust WSGI server like Gunicorn or uWSGI.
+- The filtered character data is retrieved on-demand from the "Rick and Morty" API, so response times will depend on API latency.
+- If any changes are made to the code or requirements, remember to rebuild the Docker image and redeploy to update the running instance.
