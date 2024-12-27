@@ -5,7 +5,7 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
 
 ### What Has Been Done
 
-    1. Data Extraction and CSV Generation:
+1. Data Extraction and CSV Generation:
         Initially, a script was created to query the "Rick and Morty" API and find all characters who are:
         - Species: Human
         - Status: Alive
@@ -16,20 +16,20 @@ This project fetches data from the "Rick and Morty" public API, filtering charac
         - Current Location
         - Image URL
 
-    2. RESTful Service Implementation:
+2. RESTful Service Implementation:
         Building on the script, the functionality was turned into a RESTful Flask application, providing:
         - /healthcheck endpoint to verify that the application is up and running.
         - /characters endpoint returning JSON with the filtered character data.
 
     This allows easy retrieval of the filtered data via standard HTTP requests.
 
-    3. Containerization and Documentation:
+3. Containerization and Documentation:
         A Dockerfile was created to containerize the application. Detailed instructions on how to build and run the container - have been added. The README now guides you through:
         - Building the Docker image.
         - Running the container locally.
         - Verifying the endpoints.
 
-    4. Kubernetes Deployment with Minikube:
+4. Kubernetes Deployment with Minikube:
         To showcase how this can be run in a Kubernetes environment, a set of YAML manifests (Deployment, Service, Ingress) were prepared. The README includes instructions for:
         - Starting Minikube.
         - Applying the Kubernetes manifests.
