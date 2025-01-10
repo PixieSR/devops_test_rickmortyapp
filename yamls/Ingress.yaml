@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rickmortyapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: rickmorty.local
+      http:
+        paths:
+          - path: /healthcheck
+            pathType: Prefix
+            backend:
+              service:
+                name: rickmortyapp-service
+                port:
+                  number: 80
+          - path: /characters
+            pathType: Prefix
+            backend:
+              service:
+                name: rickmortyapp-service
+                port:
+                  number: 80

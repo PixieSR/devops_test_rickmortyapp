@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rickmortyapp-deployment
+  labels:
+    app: rickmortyapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rickmortyapp
+  template:
+    metadata:
+      labels:
+        app: rickmortyapp
+    spec:
+      containers:
+        - name: rickmortyapp
+          image: rickmortyapp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
